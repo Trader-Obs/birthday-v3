@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const envelopeContainer = document.getElementById('envelopeContainer');
     const unfoldButton = document.getElementById('unfoldButton');
     const finalGreetingElement = document.getElementById('finalGreeting');
+    const cakeFrame = document.querySelector('.cake-container iframe');
 
     const steps = {
         step1: document.getElementById('step1'),
@@ -54,6 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Step 4: Grand Celebration Animations ---
     function startCelebrationAnimations() {
+        // Start the cake & candle animation inside the iframe
+        if (cakeFrame && cakeFrame.contentWindow) {
+            cakeFrame.contentWindow.postMessage('startCake', '*');
+        }
+
         // --- Typewriter Effect for Main Greeting ---
         let i = 0;
         finalGreetingElement.textContent = ''; // Clear content

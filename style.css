@@ -233,17 +233,19 @@ body {
     align-items: center;
     position: relative;
     overflow: hidden;
+    transform: scale(0.8);
+    transform-origin: center center;
 }
 
 .celebration-card {
     text-align: center;
-    padding: 30px;
+    padding: 24px 26px 32px;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 20px;
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0 20px 40px var(--shadow-heavy);
-    max-width: 700px;
+    max-width: 620px;
     z-index: 10; /* Ensure card is above animations */
     animation: popIn 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
@@ -261,7 +263,7 @@ body {
 
 .main-greeting {
     font-family: 'Poppins', sans-serif;
-    font-size: 2.8rem;
+    font-size: 2.2rem;
     font-weight: 700;
     white-space: nowrap; /* Prevent text wrap during typing */
     overflow: hidden; /* Hide overflow for typewriter effect */
@@ -283,7 +285,7 @@ body {
 
 .recipient-name {
     font-family: 'Pacifico', cursive;
-    font-size: 4.5rem;
+    font-size: 3.6rem;
     color: var(--accent-yellow);
     margin: 5px 0 20px;
     text-shadow: 3px 3px 8px var(--shadow-medium);
@@ -291,8 +293,8 @@ body {
 }
 
 .final-wish {
-    font-size: 1.15rem;
-    margin-top: 25px;
+    font-size: 1.05rem;
+    margin-top: 35px;
     line-height: 1.6;
     max-width: 600px;
     margin-left: auto;
@@ -301,7 +303,7 @@ body {
 
 .signature {
     font-family: 'Great Vibes', cursive;
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-top: 30px;
     color: var(--accent-yellow);
     display: flex;
@@ -320,102 +322,101 @@ body {
 }
 
 /* --- Cake Styling --- */
+/* ==============================================
+   Animated SVG Cake Container & Positioning
+   ============================================== */
+
 .cake-container {
-    margin: 30px auto;
-}
-
-.cake {
     position: relative;
-    width: 280px; /* Slightly larger cake */
-    height: 280px;
-    margin: 0 auto; /* Center the cake */
+    width: 260px;
+    height: 440px;
+    margin: -2.5em auto 3em auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.plate {
-    width: 300px;
-    height: 25px;
-    background-color: #ccc;
+/* The SVG itself */
+#animated-cake {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible !important;
+}
+
+/* Candle body (white rectangle with red lines) */
+.cake {
+    background: #ffffff;
+    border-radius: 10px;
     position: absolute;
-    bottom: 40px;
+    top: 228px;                         /* matches your original placement */
     left: 50%;
-    transform: translateX(-50%);
-    border-radius: 50%;
-    box-shadow: 0 5px 10px var(--shadow-medium);
+    margin-left: -3px;                  /* centered */
+    width: 6px;
+    height: 38px;
+    transform: translateY(-320px);      /* starts higher, animates down */
+    backface-visibility: hidden;
+    animation: in 600ms 4.2s ease-out forwards;  /* appears after layers are built */
+    z-index: 10;
 }
 
-.layer {
+.cake::after,
+.cake::before {
+    background: rgba(220, 20, 60, 0.5); /* slightly darker red lines */
+    content: "";
     position: absolute;
-    width: 280px;
-    height: 60px; /* Taller layers */
-    background-color: var(--cake-bottom);
-    border-radius: 50% / 25%;
+    width: 100%;
+    height: 2.4px;
+    left: 0;
+}
+
+.cake::after  { top: 25%; }
+.cake::before { top: 48%; }
+
+/* Flames (fuego) */
+.fuego {
+    position: absolute;
+    top: -22px;
     left: 50%;
-    transform: translateX(-50%);
-}
-.layer-bottom { bottom: 45px; background-color: var(--cake-bottom); width: 280px; }
-.layer-middle { bottom: 85px; background-color: var(--cake-middle); width: 260px; }
-.layer-top { bottom: 125px; background-color: var(--cake-top); width: 240px; }
-
-.icing {
-    position: absolute;
-    width: 240px;
-    height: 35px; /* Thicker icing */
-    background-color: white;
-    bottom: 165px;
-    border-radius: 50% / 25%;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.1);
-}
-
-.drip {
-    position: absolute;
-    width: 25px; /* Wider drips */
-    height: 35px; /* Longer drips */
-    background: white;
-    border-radius: 50%;
-    top: -15px;
-}
-.drip1 { left: 40px; display:none;}
-.drip2 { left: 127px; height: 45px; } /* Slightly longer middle drip */
-.drip3 { left: 210px; display: none;}
-
-.candle {
-    position: absolute;
-    width: 12px; /* Thicker candle */
-    height: 60px; /* Taller candle */
-    background-color: var(--primary-red);
-    bottom: 190px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 5px 5px 0 0;
-    box-shadow: inset 0 -2px 5px rgba(0,0,0,0.2);
-}
-
-.flame {
-    position: absolute;
-    width: 12px;
-    height: 18px; /* Taller flame */
-    background-color: var(--flame-color);
-    top: -18px;
+    margin-left: -4px;
+    width: 9px;
+    height: 22px;
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    animation: flicker 1s infinite;
-    box-shadow: 0 0 8px var(--flame-color), 0 0 15px var(--flame-color), 0 0 25px var(--flame-color);
-    transition: all 0.2s ease-out; /* For hover effect */
-}
-
-/* Candle blow-out effect */
-.candle:hover .flame {
+    background: rgba(255, 220, 80, 0.9);
+    box-shadow: 
+        0 0 20px 8px rgba(255, 240, 120, 0.8),
+        0 0 40px 15px rgba(255, 120, 0, 0.7);
     opacity: 0;
-    transform: scale(0.2) translateY(5px);
-    box-shadow: none;
+    transform: translateX(-50%) scale(0.7);
+    z-index: 10;
 }
 
-@keyframes flicker {
-    0%, 100% { transform: scaleY(1) rotate(0deg); opacity: 1; }
-    25% { transform: scaleY(0.9) rotate(2deg); opacity: 0.9; }
-    50% { transform: scaleY(1.1) rotate(-2deg); opacity: 1; }
-    75% { transform: scaleY(0.95) rotate(1deg); opacity: 0.95; }
+/* Staggered flicker start times – appear after cake is complete */
+.fuego:nth-child(1) { animation: fuego 2.1s 4.8s infinite; }
+.fuego:nth-child(2) { animation: fuego 1.7s 4.9s infinite; }
+.fuego:nth-child(3) { animation: fuego 1.3s 5.0s infinite; }
+.fuego:nth-child(4) { animation: fuego 2.4s 5.1s infinite; }
+.fuego:nth-child(5) { animation: fuego 1.9s 5.2s infinite; }
+
+@keyframes fuego {
+    0%, 100% {
+        background: rgba(255, 240, 100, 0.9);
+        box-shadow: 0 0 30px 10px rgba(255, 220, 100, 0.6);
+        transform: translateX(-50%) scale(1) translateY(0);
+        opacity: 0.95;
+    }
+    50% {
+        background: rgba(255, 80, 0, 0.7);
+        box-shadow: 0 0 50px 20px rgba(255, 180, 60, 0.5);
+        transform: translateX(-50%) scale(0.75) translateY(-15px);
+        opacity: 0.6;
+    }
+}
+
+@keyframes in {
+    to {
+        transform: translateY(0);
+    }
 }
 
 
